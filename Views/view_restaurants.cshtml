@@ -1,1 +1,22 @@
-<h1>You made it!</h1>
+<h1>Restaurants</h1>
+
+<form action='/cuisines/@Model["cuisines"].GetId()' method="post">
+  <label for="restaurant-name">Restaurant Name: </label>
+  <input type="text" name="restaurant-name">
+  <label for="restaurant-city">City: </label>
+  <input type="text" name="restaurant-city">
+  <label for="restaurant-rating">Restaurant rating: </label>
+  <input type="text" name="restaurant-rating">
+  <input type="hidden" name="cuisine-id" value='@Model["cuisines"].GetId()'>
+  <button type="submit" name="button">Enter</button>
+</form>
+
+<ul>
+  @foreach (var restaurant in @Model["restaurants"])
+  {
+    <li>Name: @restaurant.GetName()</li>
+    <li>Location: @restaurant.GetCity()</li>
+    <li>User Ratings: @restaurant.GetRating() / 5</li>
+    <li>-----------------------------------</li>
+  }
+</ul>

@@ -27,6 +27,17 @@ namespace CuisineProject
         return View["view_restaurants.cshtml", model];
       };
 
+      Post["/cuisines/{id}"] = param => {
+        Restaurant newRestaurant = new Restaurant(Request.Form["restaurant-name"], Request.Form["cuisine-id"], Request.Form["restaurant-city"], Request.Form["restaurant-rating"]);
+        newRestaurant.Save();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Cuisine searchCuisines = Cuisine.FindCuisines(param.id);
+        List<Restaurant> allCuisinesByType = Restaurant.GetAllByType(param.id);
+        model.Add("cuisines", searchCuisines);
+        model.Add("restaurants", allCuisinesByType);
+        return View["view_restaurants.cshtml", model];
+      };
+
       Post["/delete"] = _ => {
         Cuisine.DeleteAll();
         Restaurant.DeleteAll();
