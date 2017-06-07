@@ -96,6 +96,7 @@ namespace CuisineProject
       return allRestaurants;
     }
 
+
     public void Save()
     {
       SqlConnection conn = DB.Connection();
@@ -139,6 +140,45 @@ namespace CuisineProject
       {
         conn.Close();
       }
+    }
+
+    public static List<Restaurant> GetAllByType(int typeId)
+    {
+      List<Restaurant> getRestaurants = new List<Restaurant>{};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM restaurants WHERE cuisine_id = @Id;", conn);
+      SqlParameter restaurantIdParameter = new SqlParameter();
+      restaurantIdParameter.ParameterName = "@Id";
+      restaurantIdParameter.Value = typeId.ToString();
+      cmd.Parameters.Add(restaurantIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int restaurantId = rdr.GetInt32(0);
+        string restuarantName = rdr.GetString(1);
+        int cuisineId = rdr.GetInt32(2);
+        string restaurantCity = rdr.GetString(3);
+        int ratingId = rdr.GetInt32(4);
+
+        Restaurant newRestaurant = new Restaurant(restuarantName, cuisineId, restaurantCity, ratingId, restaurantId);
+        getRestaurants.Add(newRestaurant);
+      }
+
+        if (rdr != null)
+        {
+         rdr.Close();
+       }
+       if (conn != null)
+       {
+           conn.Close();
+       }
+
+      return getRestaurants;
+
     }
 
 

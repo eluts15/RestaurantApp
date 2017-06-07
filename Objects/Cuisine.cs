@@ -42,6 +42,38 @@ namespace CuisineProject
       }
     }
 
+    public static Cuisine FindCuisines(int searchId)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM cuisines WHERE id = @searchId;", conn);
+      SqlParameter restaurantIdParameter = new SqlParameter();
+      restaurantIdParameter.ParameterName = "@searchId";
+      restaurantIdParameter.Value = searchId.ToString();
+      cmd.Parameters.Add(restaurantIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int cuisinesId = 0;
+      string cuisinesType = "";
+
+      while(rdr.Read())
+      {
+        cuisinesId = rdr.GetInt32(0);
+        cuisinesType =  rdr.GetString(1);
+      }
+      Cuisine newCuisine = new Cuisine(cuisinesType, cuisinesId);
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return newCuisine;
+    }
+
     public static List<Cuisine> GetAll()
     {
       List<Cuisine> allCuisines = new List<Cuisine>{};

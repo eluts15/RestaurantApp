@@ -18,14 +18,14 @@ namespace CuisineProject
         List<Cuisine> allCuisines = Cuisine.GetAll();
         return View["index.cshtml", allCuisines];
       };
-      // Get["/cuisines/{id}"] = param => {
-      //   Dictionary<string, object> model = new Dictionary<string, object>{};
-      //   Cuisine searchCuisines = Cuisine.FindCuisines(param.id);
-      //   List<Cuisine> allCuisinesByType = Cuisine.GetAllByType(param.id);
-      //   model.Add("cuisines", searchCuisines);
-      //   model.Add("restaurants", allCuisinesByType);
-      //   return View["view_restaurants.cshtml", model];
-      // };
+      Get["/cuisines/{id}"] = param => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Cuisine searchCuisines = Cuisine.FindCuisines(param.id);
+        List<Restaurant> allCuisinesByType = Restaurant.GetAllByType(param.id);
+        model.Add("cuisines", searchCuisines);
+        model.Add("restaurants", allCuisinesByType);
+        return View["view_restaurants.cshtml", model];
+      };
 
       Post["/delete"] = _ => {
         Cuisine.DeleteAll();
