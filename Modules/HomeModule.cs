@@ -53,7 +53,13 @@ namespace CuisineProject
         model.Add("restaurants", allCuisinesByType);
         return View["cuisines_edit.cshtml", model];
       };
-    }
 
+      Patch["cuisines/edit/{id}"] = param => {
+        Cuisine selectedCuisine = Cuisine.FindCuisines(param.id);
+        selectedCuisine.Update(Request.Form["new-cuisine-name"]);
+        List<Cuisine> allCuisines = Cuisine.GetAll();
+        return View["index.cshtml", allCuisines];
+      };
+    }
   }
 }
