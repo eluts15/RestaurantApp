@@ -37,6 +37,31 @@ namespace CuisineProject
     {
       return _rating;
     }
+    public int GetCuisineId()
+    {
+      return _cuisineId;
+    }
+
+
+    public override bool Equals(System.Object otherRestaurant)
+    {
+      if (!(otherRestaurant is Restaurant))
+      {
+        return false;
+      }
+      else
+      {
+        Restaurant newRestaurant = (Restaurant) otherRestaurant;
+        bool idEquality = (this.GetId() == newRestaurant.GetId());
+        bool nameEquality = (this.GetName() == newRestaurant.GetName());
+        bool cityEquality = (this.GetCity() == newRestaurant.GetCity());
+        bool ratingEquality = (this.GetRating() == newRestaurant.GetRating());
+        bool cuisineIdEquality = (this.GetCuisineId() == newRestaurant.GetCuisineId());
+
+
+        return (idEquality && nameEquality && cityEquality && ratingEquality && cuisineIdEquality);
+      }
+    }
 
     public static List<Restaurant> GetAll()
     {

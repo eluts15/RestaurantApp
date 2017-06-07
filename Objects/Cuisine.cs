@@ -26,6 +26,22 @@ namespace CuisineProject
       return _type;
     }
 
+    public override bool Equals(System.Object otherCuisine)
+    {
+      if (!(otherCuisine is Cuisine))
+      {
+        return false;
+      }
+      else
+      {
+        Cuisine newCuisine = (Cuisine) otherCuisine;
+        bool idEquality = (this.GetId() == newCuisine.GetId());
+        bool typeEquality = (this.GetType() == newCuisine.GetType());
+
+        return (idEquality && typeEquality);
+      }
+    }
+
     public static List<Cuisine> GetAll()
     {
       List<Cuisine> allCuisines = new List<Cuisine>{};

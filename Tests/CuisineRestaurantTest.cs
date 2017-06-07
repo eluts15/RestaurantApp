@@ -24,6 +24,28 @@ namespace CuisineProject
       Assert.Equal(0, cuisineResult + restaurantResult);
     }
 
+    [Fact]
+    public void Test_Cuisine_ReturnValuesEqualEachother()
+    {
+      //Arrange Act
+      Cuisine cuisineOne = new Cuisine("Spanish");
+      Cuisine cuisineTwo = new Cuisine("Spanish");
+
+      //Assert
+      Assert.Equal(cuisineOne, cuisineTwo);
+    }
+
+    [Fact]
+    public void Test_Restaurant_ReturnValuesEqualEachother()
+    {
+      //Arrange Act
+      Restaurant restaurantOne = new Restaurant("Papa's Burp n' Slurp", 1, "Papa's City", 5);
+      Restaurant restaurantTwo = new Restaurant("Papa's Burp n' Slurp", 1, "Papa's City", 5);
+
+      //Assert
+      Assert.Equal(restaurantOne, restaurantTwo);
+    }
+
 
     public void Dispose()
     {
