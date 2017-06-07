@@ -131,6 +131,38 @@ namespace CuisineProject
      }
     }
 
+    public void Update(string newType)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE cuisines SET type = @NewType OUTPUT INSERTED.type WHERE id = @CuisineId;", conn);
+
+      SqlParameter newTypeParameter = new SqlParameter();
+      newTypeParameter.ParameterName = "@NewType";
+      newTypeParameter.Value = newType;
+      cmd.Parameters.Add(newTypeParameter);
+
+      SqlParameter newIdParameter = new SqlParameter();
+      newIdParameter.ParameterName = "@CuisineId";
+      newIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(newIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._type = rdr.GetString(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
 
     public static void DeleteAll()
     {

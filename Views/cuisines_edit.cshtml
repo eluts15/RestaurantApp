@@ -1,0 +1,9 @@
+<h1>Edit Quizeen: @Model["cuisines"].GetType()</h1>
+<hr />
+<form action='/cuisines/edit/@Model["cuisines"].GetId()' method="post">
+  <label for="new-cuisine-name">New Cuisine Name: </label>
+  <input type="text" name="new-cuisine-name">
+  <button type="submit" name="button">Enter</button>
+</form>
+
+<h3><a href="/">Go Home</a></h3>

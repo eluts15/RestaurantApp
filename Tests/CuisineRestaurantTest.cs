@@ -75,6 +75,23 @@ namespace CuisineProject
       Assert.Equal(testList, result);
     }
 
+    [Fact]
+    public void Test_Update_UpdatesCuisineInDatabase()
+    {
+      //Arrange
+      string testType = "Not freedom:(";
+      Cuisine testCuisines = new Cuisine(testType);
+      testCuisines.Save();
+      string newType = "FREEEEDOOOM";
+
+      //Act
+      testCuisines.Update(newType);
+      string result = testCuisines.GetType();
+
+      //Assert
+      Assert.Equal(newType, result);
+    }
+
 
     public void Dispose()
     {

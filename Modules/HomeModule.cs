@@ -44,6 +44,15 @@ namespace CuisineProject
         List<Cuisine> allCuisines = Cuisine.GetAll();
         return View["index.cshtml", allCuisines];
       };
+
+      Get["cuisines/edit/{id}"] = param => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Cuisine searchCuisines = Cuisine.FindCuisines(param.id);
+        List<Restaurant> allCuisinesByType = Restaurant.GetAllByType(param.id);
+        model.Add("cuisines", searchCuisines);
+        model.Add("restaurants", allCuisinesByType);
+        return View["cuisines_edit.cshtml", model];
+      };
     }
 
   }

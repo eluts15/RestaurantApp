@@ -1,4 +1,5 @@
-<h1>Local Cuisines</h1>
+<h1>Cuisines</h1>
+<hr />
 <form class="cuisines" action="/" method="post">
   <label for="cuisines">Add a cuisine</label>
   <input type="text" name="cuisines">
@@ -10,8 +11,11 @@
 </form>
 
 <ul>
-  @foreach (var cuisines in @Model)
+  @if (Model.Count != 0)
   {
-    <li><a href="/cuisines/@cuisines.GetId()">@cuisines.GetType()</a></li>
+    @foreach (var cuisines in Model)
+    {
+      <li><a href="/cuisines/@cuisines.GetId()">@cuisines.GetType()</a> | <a href="/cuisines/edit/@cuisines.GetId()">Edit</a></li>
+    }
   }
 </ul>
