@@ -46,6 +46,36 @@ namespace CuisineProject
       Assert.Equal(restaurantOne, restaurantTwo);
     }
 
+    [Fact]
+    public void Test_Cuisine_Save_SaveToDatabase()
+    {
+      //Arrange
+      Cuisine french = new Cuisine("Frankenfurt");
+
+      //Act
+      french.Save();
+      List<Cuisine> result = Cuisine.GetAll();
+      List<Cuisine> testList = new List<Cuisine>{french};
+
+      //Assert
+      Assert.Equal(result, testList);
+    }
+
+    [Fact]
+    public void Test_Restaurant_SaveToDatabase()
+    {
+      //Arrange
+      Restaurant testRestaurant = new Restaurant("Papa's Burp n' Slurp II", 2, "Papa's Town", 5);
+
+      //Act
+      testRestaurant.Save();
+      List<Restaurant> result = Restaurant.GetAll();
+      List<Restaurant> testList = new List<Restaurant>{testRestaurant};
+
+      //Assert
+      Assert.Equal(testList, result);
+    }
+
 
     public void Dispose()
     {

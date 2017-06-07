@@ -25,6 +25,10 @@ namespace CuisineProject
     {
       return _id;
     }
+    public int GetCuisineId()
+    {
+      return _cuisineId;
+    }
     public string GetName()
     {
       return _name;
@@ -36,10 +40,6 @@ namespace CuisineProject
     public int GetRating()
     {
       return _rating;
-    }
-    public int GetCuisineId()
-    {
-      return _cuisineId;
     }
 
 
@@ -94,6 +94,51 @@ namespace CuisineProject
       }
 
       return allRestaurants;
+    }
+
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO restaurants (name, cuisine_id, city, rating) OUTPUT INSERTED.id VALUES (@Name, @CuisineId, @City, @Rating);", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@Name";
+      nameParameter.Value = this.GetName();
+
+      SqlParameter cuisineIdParameter = new SqlParameter();
+      cuisineIdParameter.ParameterName = "@CuisineId";
+      cuisineIdParameter.Value = this.GetCuisineId();
+
+      SqlParameter cityParameter = new SqlParameter();
+      cityParameter.ParameterName = "@City";
+      cityParameter.Value = this.GetCity();
+
+      SqlParameter ratingParameter = new SqlParameter();
+      ratingParameter.ParameterName = "@Rating";
+      ratingParameter.Value = this.GetRating();
+
+
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(cuisineIdParameter);
+      cmd.Parameters.Add(cityParameter);
+      cmd.Parameters.Add(ratingParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
     }
 
 

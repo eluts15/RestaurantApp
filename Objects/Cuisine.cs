@@ -71,6 +71,34 @@ namespace CuisineProject
       return allCuisines;
     }
 
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO cuisines (type) OUTPUT INSERTED.id VALUES (@Type);", conn);
+
+      SqlParameter typeParam = new SqlParameter();
+      typeParam.ParameterName = "@Type";
+      typeParam.Value = this.GetType();
+
+      cmd.Parameters.Add(typeParam);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+     {
+       this._id = rdr.GetInt32(0);
+     }
+     if (rdr != null)
+     {
+       rdr.Close();
+     }
+     if (conn != null)
+     {
+       conn.Close();
+     }
+    }
+
 
     public static void DeleteAll()
     {
