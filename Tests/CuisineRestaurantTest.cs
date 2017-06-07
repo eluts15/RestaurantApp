@@ -2,7 +2,6 @@ using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data;
 
 namespace CuisineProject
 {
@@ -28,8 +27,8 @@ namespace CuisineProject
     public void Test_Cuisine_ReturnValuesEqualEachother()
     {
       //Arrange Act
-      Cuisine cuisineOne = new Cuisine("Spanish");
-      Cuisine cuisineTwo = new Cuisine("Spanish");
+      Cuisine cuisineOne = new Cuisine("Freedom");
+      Cuisine cuisineTwo = new Cuisine("Freedom");
 
       //Assert
       Assert.Equal(cuisineOne, cuisineTwo);

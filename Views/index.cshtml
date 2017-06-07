@@ -1,0 +1,17 @@
+<h1>Local Cuisines</h1>
+<form class="cuisines" action="/" method="post">
+  <label for="cuisines">Add a cuisine</label>
+  <input type="text" name="cuisines">
+  <button type="submit" name="button">Enter</button>
+</form>
+
+<form action="/delete" method="post">
+  <button type="submit" name="button">Delete</button>
+</form>
+
+<ul>
+  @foreach (var cuisines in @Model)
+  {
+    <li><a href="/cuisines/@cuisines.GetId()">@cuisines.GetType()</a></li>
+  }
+</ul>
