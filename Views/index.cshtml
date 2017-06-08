@@ -15,7 +15,7 @@
   {
     @foreach (var cuisines in Model)
     {
-      <li><a href="/cuisines/@cuisines.GetId()">@cuisines.GetType()</a> | <a href="/cuisines/edit/@cuisines.GetId()">Edit</a></li>
+      <li><a href="/cuisines/@cuisines.GetId()">@cuisines.GetType()</a> | <a href="/cuisines/edit/@cuisines.GetId()">Edit</a> | <a href="/cuisines/delete/@cuisines.GetId()">Delete</a></li>
     }
   }
 </ul>

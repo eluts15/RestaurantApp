@@ -178,7 +178,6 @@ namespace CuisineProject
        }
 
       return getRestaurants;
-
     }
 
 

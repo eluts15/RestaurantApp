@@ -60,6 +60,23 @@ namespace CuisineProject
         List<Cuisine> allCuisines = Cuisine.GetAll();
         return View["index.cshtml", allCuisines];
       };
+
+      Get["cuisines/delete/{id}"] = param => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Cuisine searchCuisines = Cuisine.FindCuisines(param.id);
+        List<Restaurant> allCuisinesByType = Restaurant.GetAllByType(param.id);
+        model.Add("cuisines", searchCuisines);
+        model.Add("restaurants", allCuisinesByType);
+        return View["cuisines_delete.cshtml", model];
+      };
+
+      Delete["cuisines/delete/{id}"] = param => {
+        Cuisine selectedCuisine = Cuisine.FindCuisines(param.id);
+        selectedCuisine.Delete();
+        List<Cuisine> allCuisines = Cuisine.GetAll();
+        return View["index.cshtml", allCuisines];
+      };
+
     }
   }
 }
