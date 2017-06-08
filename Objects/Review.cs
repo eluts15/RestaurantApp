@@ -127,6 +127,44 @@ namespace CuisineProject
       }
     }
 
+    public static List<Review> GetAllByRestaurant(int typeId)
+    {
+      List<Review> getReviews = new List<Review>{};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlParameter restaurantIdParameter = new SqlParameter("@Id", typeId.ToString());
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM reviews WHERE restaurant_id = @Id;", conn);
+
+      cmd.Parameters.Add(restaurantIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int reviewId = rdr.GetInt32(0);
+        int restaurantId = rdr.GetInt32(1);
+        string reviewName = rdr.GetString(2);
+        string reviewReview = rdr.GetString(3);
+        int ratingId = rdr.GetInt32(4);
+
+        Review newReview = new Review(reviewName, reviewReview, ratingId, restaurantId, reviewId);
+        getReviews.Add(newReview);
+      }
+
+        if (rdr != null)
+        {
+         rdr.Close();
+       }
+       if (conn != null)
+       {
+           conn.Close();
+       }
+      return getReviews;
+    }
+
+
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();

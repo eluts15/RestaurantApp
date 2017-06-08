@@ -96,6 +96,8 @@ namespace CuisineProject
         List<Cuisine> allCuisines = Cuisine.GetAll();
         return View["index.cshtml", allCuisines];
       };
+
+      // Get["restaurant/review/add"]
     }
   }
 }
