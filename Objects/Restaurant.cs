@@ -218,6 +218,42 @@ namespace CuisineProject
       return newRestaurant;
     }
 
+    /////////////////////////////// USE THIS THINGY ///////////////////////////////
+    public void Update(string newName, string newCity, int newRating)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlParameter newNameParameter = new SqlParameter("@NewName", newName);
+      SqlParameter newCityParameter = new SqlParameter("@NewCity", newCity);
+      SqlParameter newRatingParameter = new SqlParameter("@NewRating", newRating);
+      SqlParameter newIdParameter = new SqlParameter("@Id", this.GetId());
+
+      SqlCommand cmd = new SqlCommand("UPDATE restaurants SET name = @NewName, city = @NewCity, rating = @NewRating OUTPUT INSERTED.name, INSERTED.city, INSERTED.rating WHERE id = @Id;", conn);
+
+      cmd.Parameters.Add(newNameParameter);
+      cmd.Parameters.Add(newCityParameter);
+      cmd.Parameters.Add(newRatingParameter);
+      cmd.Parameters.Add(newIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._name = rdr.GetString(0);
+        this._city = rdr.GetString(1);
+        this._rating = rdr.GetInt32(2);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+
     public void Delete()
     {
       SqlConnection conn = DB.Connection();

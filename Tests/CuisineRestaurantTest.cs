@@ -93,6 +93,28 @@ namespace CuisineProject
     }
 
     [Fact]
+    public void Test_Restaurant_Update_UpdatesRestaurantinDatabase()
+    {
+      //Arrange
+      Restaurant testRestaurant = new Restaurant("Papa's Burp n' Slurp", 1, "Papa's Village", 5);
+      testRestaurant.Save();
+      string newName = "Papa's Burp n' Slurp II";
+      string newCity = "Papa's Town";
+      int newRating = 500;
+
+      //Act
+      testRestaurant.Update(newName, newCity, newRating);
+      string nameResult = testRestaurant.GetName();
+      string cityResult = testRestaurant.GetCity();
+      int ratingResult = testRestaurant.GetRating();
+
+      //Assert
+      Assert.Equal(newName, nameResult);
+      Assert.Equal(newCity, cityResult);
+      Assert.Equal(newRating, ratingResult);
+    }
+
+    [Fact]
     public void Test_Cuisine_Delete_DeletesCategoryFromDatabase()
     {
       //Arrange

@@ -14,10 +14,10 @@
 <ul>
   @foreach (var restaurant in @Model["restaurants"])
   {
-    <li>Name: <a href='/cuisines/restaurants/@restaurant.GetId()'>@restaurant.GetName()</a></li>
+    <li>Name: @restaurant.GetName()</li>
     <li>Location: @restaurant.GetCity()</li>
     <li>User Ratings: @restaurant.GetRating() / 5</li>
-    <li>-----------------<a href="/restaurant/delete/@restaurant.GetId()">DELETE</a>-----------------</li>
+    <li>-----------------<a href="/restaurant/edit/@restaurant.GetId()">EDIT</a> | <a href="/restaurant/delete/@restaurant.GetId()">DELETE</a>-----------------</li>
     <br>
   }
 </ul>

@@ -1,0 +1,15 @@
+<h1>Edit Wrestwront: @Model.GetType()</h1>
+<hr />
+<form action='/restaurant/edit/@Model.GetId()' method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <input type="hidden" name="RestaurantId" value='@Model.GetId()'>
+  <label for="new-restaurant-name">New Restaurant Name: </label>
+  <input type="text" name="new-restaurant-name">
+  <label for="new-restaurant-city">New Restaurant City: </label>
+  <input type="text" name="new-restaurant-city">
+  <label for="new-restaurant-rating">New Restaurant Rating: </label>
+  <input type="text" name="new-restaurant-rating">
+  <button type="submit" name="button">Enter</button>
+</form>
+
+<h3><a href="/">Go Home</a></h3>
