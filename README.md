@@ -1,4 +1,4 @@
-# Restaurant DataB-B-B-Base
+# Restaurant Database
 
 TODO: Write a project description
 
