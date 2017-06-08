@@ -46,6 +46,17 @@ namespace CuisineProject
     }
 
     [Fact]
+    public void Test_Review_RetrunValuesEqualEachother()
+    {
+      //Arrange Act
+      Review reviewOne = new Review("Mr. Papa", "It was fantastic.", 40, 1);
+      Review reviewTwo = new Review("Mr. Papa", "It was fantastic.", 40, 1);
+
+      //Assert
+      Assert.Equal(reviewOne, reviewTwo);
+    }
+
+    [Fact]
     public void Test_Cuisine_Save_SaveToDatabase()
     {
       //Arrange
@@ -76,7 +87,22 @@ namespace CuisineProject
     }
 
     [Fact]
-    public void Test_Update_UpdatesCuisineInDatabase()
+    public void Test_Review_SaveToDatabase()
+    {
+      //Arrange
+      Review testReview = new Review("Mr. Papa", "It was fantastic.", 40, 1);
+
+      //Act
+      testReview.Save();
+      List<Review> result = Review.GetAll();
+      List<Review> testList = new List<Review>{testReview};
+
+      //Assert
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void Test_Cuisine_Update_UpdatesCuisineInDatabase()
     {
       //Arrange
       string testType = "Not freedom:(";
@@ -162,10 +188,15 @@ namespace CuisineProject
       Assert.Equal(resultRestaurants, testRestaurantList);
     }
 
+
+
+
+
     public void Dispose()
     {
       Cuisine.DeleteAll();
       Restaurant.DeleteAll();
+      Review.DeleteAll();
     }
   }
 }
