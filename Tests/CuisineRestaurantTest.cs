@@ -93,7 +93,7 @@ namespace CuisineProject
     }
 
     [Fact]
-    public void Test_Delete_DeletesCategoryFromDatabase()
+    public void Test_Cuisine_Delete_DeletesCategoryFromDatabase()
     {
       //Arrange
       string type1 = "freedom";
@@ -122,6 +122,23 @@ namespace CuisineProject
       Assert.Equal(testRestaurantList, resultRestaurants);
     }
 
+    [Fact]
+    public void Test_Restaurant_Delete_DeleteRestaurantFromDatabase()
+    {
+      //Arrange
+      Restaurant testRestaurant1 = new Restaurant("Papa's Burp n' Slurp II", 1, "Papa's Town", 5);
+      testRestaurant1.Save();
+      Restaurant testRestaurant2 = new Restaurant("Big Papa's Burp n' Slurp II", 1, "Big Papa's Town", 5);
+      testRestaurant2.Save();
+
+      //Act
+      testRestaurant1.Delete();
+      List<Restaurant> resultRestaurants = Restaurant.GetAll();
+      List<Restaurant> testRestaurantList = new List<Restaurant> {testRestaurant2};
+
+      //Assert
+      Assert.Equal(resultRestaurants, testRestaurantList);
+    }
 
     public void Dispose()
     {

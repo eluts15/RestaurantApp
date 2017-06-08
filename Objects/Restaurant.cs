@@ -180,6 +180,63 @@ namespace CuisineProject
       return getRestaurants;
     }
 
+    public static Restaurant Find(int searchId)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM restaurants WHERE id = @searchId;", conn);
+      SqlParameter restaurantIdParameter = new SqlParameter();
+      restaurantIdParameter.ParameterName = "@searchId";
+      restaurantIdParameter.Value = searchId.ToString();
+      cmd.Parameters.Add(restaurantIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int restaurantId = 0;
+      string restaurantName = null;
+      int restaurantCuisineId = 0;
+      string restaurantCity = null;
+      int restaurantRating = 0;
+
+      while(rdr.Read())
+      {
+        restaurantId = rdr.GetInt32(0);
+        restaurantName = rdr.GetString(1);
+        restaurantCuisineId = rdr.GetInt32(2);
+        restaurantCity = rdr.GetString(3);
+        restaurantRating = rdr.GetInt32(4);
+      }
+      Restaurant newRestaurant = new Restaurant(restaurantName, restaurantCuisineId, restaurantCity, restaurantRating, restaurantId);
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return newRestaurant;
+    }
+
+    public void Delete()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM restaurants WHERE id = @Id;", conn);
+
+      SqlParameter restaurantIdParameter = new SqlParameter();
+      restaurantIdParameter.ParameterName = "@Id";
+      restaurantIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(restaurantIdParameter);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
 
     public static void DeleteAll()
     {

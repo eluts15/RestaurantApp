@@ -77,6 +77,17 @@ namespace CuisineProject
         return View["index.cshtml", allCuisines];
       };
 
+      Get["restaurant/delete/{id}"] = param => {
+        Restaurant selectedRestaurant = Restaurant.Find(param.id);
+        return View["restaurant_delete.cshtml", selectedRestaurant];
+      };
+
+      Delete["restaurant/delete/{id}"] = param => {
+        Restaurant selectedRestaurant = Restaurant.Find(param.id);
+        selectedRestaurant.Delete();
+        List<Cuisine> allCuisines = Cuisine.GetAll();
+        return View["index.cshtml", allCuisines];
+      };
     }
   }
 }
